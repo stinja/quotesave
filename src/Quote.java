@@ -36,11 +36,16 @@ public class Quote { // class declaration
     }
 
     public Quote(int index) {
+        this.setIndex(index);
     }
 
     public Quote(String content) {
+        this.setContent(content);
     }
 
     public Quote(int index, String content, String author) {
+        this.setIndex(index);
+        this.setContent(content);
+        this.setAuthor(author);
     }
 }
