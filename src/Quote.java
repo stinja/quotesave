@@ -1,19 +1,46 @@
 public class Quote { // class declaration
 
-    int index;
+    int quoteIndex;
     String quoteContent;
     String quoteAuthor;
 
-    // constructors
+    // getters
+    public int getIndex() {
+        return quoteIndex;
+    }
+
+    public String getContent() {
+        return quoteContent;
+    }
+
+    public String getAuthor() {
+        return quoteAuthor;
+    }
+
+
+    // setters
+    public void setIndex(int index) {
+        quoteIndex = index;
+    }
+
+    public void setContent(String content) {
+        quoteContent = content;
+    }
+
+    public void setAuthor(String author) {
+        quoteAuthor = author;
+    }
+
+    // constructors (i dont know what to do with these yet)
     public Quote() {
     }
 
     public Quote(int index) {
     }
 
-    public Quote(String quoteContent) {
+    public Quote(String content) {
     }
 
-    public Quote(int index, String quoteContent, String quoteAuthor) {
+    public Quote(int index, String content, String author) {
     }
 }
