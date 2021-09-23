@@ -1,3 +1,5 @@
+package com.company;
+
 public class Quote { // class declaration
 
     int quoteIndex;
@@ -31,7 +33,8 @@ public class Quote { // class declaration
         quoteAuthor = author;
     }
 
-    // constructors (i dont know what to do with these yet)
+    // constructors (am i using "this" right?)
+    // TODO figure out if using "this" right
     public Quote() {
     }
 

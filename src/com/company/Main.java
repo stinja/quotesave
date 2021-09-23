@@ -1,5 +1,12 @@
 package com.company;
 
+/** Classes **/
+import com.company.Quote;
+
+/** Java Library Imports **/
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
@@ -29,14 +36,30 @@ public class Main {
      *
      */
 
-    /** TODO Attempt to make a quote object
-     *
-     * quoteIndex
-     * quoteContent
-     * quoteAuthor
-     * **/
-
     public static void main(String[] args) {
-	// write your code here
+
+        /** Objects **/
+        Scanner input = new Scanner(System.in);
+        Quote quote = new Quote();
+
+
+        File file = new File("quotesList.txt");
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //quote.setIndex(qIndex);
+        // TODO set up so index is created automatically
+
+        //quote.setContent(qContent);
+        // TODO set up so user can enter in quote content
+
+        //quote.setAuthor(qAuthor);
+        // TODO set up so user can enter quote author, if no author default to "unknown"
     }
 }
