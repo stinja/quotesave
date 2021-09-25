@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+// WHERES MY GODDAMN CONTRIBUTION BOXES GIT?!
+
+
 public class Main {
     public static void main(String[] args) throws IOException {
 
