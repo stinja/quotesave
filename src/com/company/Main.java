@@ -5,11 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-// WHERES MY GODDAMN CONTRIBUTION BOXES GIT?!
-
-
 public class Main {
     public static void main(String[] args) throws IOException {
+
+        System.out.println("QUOTESAVE");
+        System.out.println("by STINJA\n\n");
 
         // TODO figure out if file stuff can go in its own method
         // Instantiate file object
@@ -31,42 +31,33 @@ public class Main {
 
         // TODO call startMenu and do something with the return int
         //  consider putting this switch statement in the startMenu method
-        int menuSelection = startMenu(input);
-        switch (menuSelection) {
-            case 1 -> addQuote(input, quoteFile);
-            case 2 -> showQuotes();
-            case 3 -> editQuote();
-            case 4 -> deleteQuote();
-            case 5 -> exitQuoteSave();
-        }
+        int menuSelection;
+        do {
+            menuSelection = startMenu(input);
+            switch (menuSelection) {
+                case 1 -> {
+                    System.out.println("YOU SELECTED ADD QUOTE.");
+                    addQuote(input, quoteFile);
+                }
+                case 2 -> {
+                    System.out.println("YOU SELECTED SHOW QUOTE.");
+                    showQuote(input, quoteFile);
+                }
+                case 3 -> {
+                    System.out.println("YOU SELECTED EDIT QUOTE.");
+                    editQuote(input, quoteFile);
+                }
+                case 4 -> {
+                    System.out.println("YOU SELECTED DELETE QUOTE.");
+                    deleteQuote(input, quoteFile);
+                }
+                case 5 -> {
+                    System.out.println("EXITING QUOTESAVE.");
+                    exitQuoteSave();
+                }
+            }
+        } while (menuSelection != 5);
     }
-
-    // FUNCTIONS/METHODS
-    /*
-
-      createQuote - create a single quote based on user input
-      deleteQuote - given the index of the quote, delete from text file
-      editQuote - given the index, grab quote and allow user to edit
-
-
-      addQuoteToTextFile - append quote to text file
-      deleteQuoteFromTextFile
-      readQuoteFromTextFile - read a single quote from text based on index
-      readAllQuotesFromTextFile - read all quotes from text
-      printQuoteToScreen - print read quote to screen
-      printAllQuotesToScreen - print read quotes to screen
-
-
-      getIndex
-      getQuoteContent
-      getQuoteAuthor
-      getDateAdded
-
-      setIndex
-      setQuoteContent
-      setDateAdded
-
-     */
 
     /** --- startMenu -------------------------
      Start menu that runs at the beginning of the program.
@@ -77,27 +68,20 @@ public class Main {
       * -----------------------------------------  */
     private static int startMenu(Scanner menuInput) {
         // output a bunch of text
-        System.out.println("QUOTESAVE");
-        System.out.println("by STINJA\n\n");
+        System.out.println("--- MAIN MENU ---");
         System.out.println("1. ADD A QUOTE");
-        System.out.println("2. VIEW QUOTES");
-        System.out.println("3. EDIT QUOTES");
-        System.out.println("4. DELETE QUOTES");
+        System.out.println("2. VIEW QUOTE");
+        System.out.println("3. EDIT QUOTE");
+        System.out.println("4. DELETE QUOTE");
         System.out.println("5. QUIT/EXIT");
-        System.out.println("\n\nWhat would you like to do?");
-        System.out.print("Please enter a number: ");
+        System.out.println("\n\n");
+        System.out.print("ENTER A MENU SELECTION: ");
 
         // grab menu selection from scanner
-        // TODO add some handling if user enters !isInt
         int menuSelect = menuInput.nextInt();
 
         // reset scanner passed in this method
         menuInput.reset();
-
-        // print out user's selection
-        // TODO change so it prints out the text associated with the menu item
-        //  use a switch statement for this
-        System.out.println("You selected " + menuSelect + ".");
 
         // return the selection as an int
         return menuSelect;
@@ -109,8 +93,8 @@ public class Main {
      * @param quoteFile - descirption
      * -----------------------------------------
      */
-    private static void addQuote(Scanner input, File quoteFile) {
-        Quote newQuote = new Quote(); // TODO fix error here
+    private static void addQuote(Scanner input, File quoteFile) throws IOException {
+        Quote newQuote = new Quote();
 
         int qIndex = determineNextIndex(input);
         String qContent = inputQContent(input);
@@ -119,15 +103,39 @@ public class Main {
         newQuote.setIndex(qIndex);
         newQuote.setContent(qContent);
         newQuote.setAuthor(qAuthor);
+
+        System.out.println("QUOTE SUCCESSFULLY ADDED.");
+
+        saveQuote(newQuote, quoteFile);
     }
 
-    // TODO set up so index is created automatically
-    // * -- check index of previous quote in text file
-    // * -- if no quote exists, index is 1
-    // * -- if quote exists, take index and increment by 1
-    // * -- take that value and assign to qIndex
+    private static void saveQuote(Quote quote, File quoteFile) throws IOException {
+        FileWriter fileWriter = new FileWriter(quoteFile, true);
+
+        // write index
+        fileWriter.write("Quote #" + quote.getIndex());
+        fileWriter.flush();
+
+        // write quote
+        fileWriter.write("\n\"" + quote.getContent() + "\"");
+        fileWriter.flush();
+
+        // write author, add line after
+        fileWriter.write("\nby " + quote.getAuthor() + "\n");
+        fileWriter.flush();
+
+        // add line and close
+        fileWriter.close();
+
+        System.out.println("QUOTE SUCCESSFULLY SAVED TO FILE.");
+    }
+
     /** --- determineNextIndex -------------------
-     *
+     *     // TODO set up so index is created automatically
+     *     // * -- check index of previous quote in text file
+     *     // * -- if no quote exists, index is 1
+     *     // * -- if quote exists, take index and increment by 1
+     *     // * -- take that value and assign to qIndex
      * @param input - descirption
      * @return - descirption
      * -------------------------------------------
@@ -139,13 +147,12 @@ public class Main {
         return indexNumber;
     }
 
-    // TODO set up so user can enter in quote content based on index
-    // * -- check the index of the quote
-    // * -- allow user to input content of quote based on index
-    // * -- save input to variable
-    // * -- advance to author
     /** --- inputQContent ------------------------
-     *
+     *     // TODO set up so user can enter in quote content based on index
+     *     // * -- check the index of the quote
+     *     // * -- allow user to input content of quote based on index
+     *     // * -- save input to variable
+     *     // * -- advance to author
      * @param input - descirption
      * @return - descirption
      * -------------------------------------------
@@ -156,19 +163,18 @@ public class Main {
         return quoteContent;
     }
 
-    // TODO set up so user can enter quote author based on index, if no author default to "unknown"
-    // * -- check index of the quote
-    // * -- allow user to input author of quote based on index
-    // * -- if no input, prompt user 3 times before assigning the string "unknown"
-    //  * -- save input to variable
     /** --- inputQAuthor -------------------------
-     *
+     *     // TODO set up so user can enter quote author based on index, if no author default to "unknown"
+     *     // * -- check index of the quote
+     *     // * -- allow user to input author of quote based on index
+     *     // * -- if no input, prompt user 3 times before assigning the string "unknown"
+     *     //  * -- save input to variable
      * @param input - descirption
      * @return - descirption
      * -------------------------------------------
      */
     private static String inputQAuthor(Scanner input) {
-        System.out.print("Enter quote content: ");
+        System.out.print("Enter quote author: ");
         String quoteAuthor = input.nextLine();
         return quoteAuthor;
     }
@@ -177,7 +183,7 @@ public class Main {
      *
      * -------------------------------------------
      */
-    private static void showQuotes() {
+    private static void showQuote(Scanner input, File quoteFile) {
         System.out.println("TODO -- build showQuotes method");
     }
 
@@ -185,7 +191,7 @@ public class Main {
      *
      * -------------------------------------------
      */
-    private static void editQuote() {
+    private static void editQuote(Scanner input, File quoteFile) {
         System.out.println("TODO -- build editQuote method");
     }
 
@@ -193,7 +199,7 @@ public class Main {
      *
      * -------------------------------------------
      */
-    private static void deleteQuote() {
+    private static void deleteQuote(Scanner input, File quoteFile) {
         System.out.println("TODO -- build deleteQuote method");
     }
 
