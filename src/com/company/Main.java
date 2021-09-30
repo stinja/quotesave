@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -28,6 +29,10 @@ public class Main {
         FileWriter fileWriter = new FileWriter(quoteFile, true);
         Scanner input = new Scanner(System.in);
         Quote quote = new Quote();
+
+        // testing new method area
+        readLastQuote(input, quoteFile);
+        // testing new method area
 
         // TODO call startMenu and do something with the return int
         //  consider putting this switch statement in the startMenu method
@@ -113,7 +118,7 @@ public class Main {
         FileWriter fileWriter = new FileWriter(quoteFile, true);
 
         // write index
-        fileWriter.write("Quote #" + quote.getIndex());
+        fileWriter.write("\nQuote #" + quote.getIndex());
         fileWriter.flush();
 
         // write quote
@@ -124,7 +129,7 @@ public class Main {
         fileWriter.write("\nby " + quote.getAuthor() + "\n");
         fileWriter.flush();
 
-        // add line and close
+        // close filewriter
         fileWriter.close();
 
         System.out.println("QUOTE SUCCESSFULLY SAVED TO FILE.");
@@ -140,11 +145,37 @@ public class Main {
      * @return - descirption
      * -------------------------------------------
      */
-    private static int determineNextIndex(Scanner input) {
+    private static int determineNextIndex(Scanner input, File quoteFile) {
+
+        // parse file
+        // grab index of last quote in file (prevIndex)
+        // int prevIndex = 0;
+
+        // create indexNumber, assign prevIndex++
+        // int nextIndex = prevIndex++;
+
+
         System.out.print("[TEMP] Enter int for index: ");
-        int indexNumber = input.nextInt();
+        int nextIndex = input.nextInt();
         input.nextLine(); // advance scanner
-        return indexNumber;
+
+
+        return nextIndex;
+    }
+
+    private static void readLastQuote(Scanner input, File quoteFile) throws FileNotFoundException {
+        //Quote lastQuote = new Quote();
+
+        input = new Scanner(quoteFile);
+
+        int lineNumber = 0;
+        while (input.hasNextLine()) {
+            i++;
+            System.out.println("Line" + lineNumber);
+        }
+
+
+        //return lastQuote;
     }
 
     /** --- inputQContent ------------------------
@@ -208,6 +239,6 @@ public class Main {
      * -------------------------------------------
      */
     private static void exitQuoteSave() {
-        System.out.println("TODO -- create the exitQuoteSave method");
+        System.out.println("GOODBYE");
     }
 }
