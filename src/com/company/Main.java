@@ -31,7 +31,7 @@ public class Main {
         Quote quote = new Quote();
 
         // testing new method area
-        readLastQuote(input, quoteFile);
+        getLastQuoteIndex(input, quoteFile);
         // testing new method area
 
         // TODO call startMenu and do something with the return int
@@ -145,7 +145,7 @@ public class Main {
      * @return - descirption
      * -------------------------------------------
      */
-    private static int determineNextIndex(Scanner input, File quoteFile) {
+    private static int determineNextIndex(Scanner input) {
 
         // parse file
         // grab index of last quote in file (prevIndex)
@@ -163,19 +163,21 @@ public class Main {
         return nextIndex;
     }
 
-    private static void readLastQuote(Scanner input, File quoteFile) throws FileNotFoundException {
-        //Quote lastQuote = new Quote();
+    private static int getLastQuoteIndex(Scanner input, File quoteFile) throws FileNotFoundException {
 
         input = new Scanner(quoteFile);
+        int lastQuoteIndex = 0;
 
-        int lineNumber = 0;
         while (input.hasNextLine()) {
-            i++;
-            System.out.println("Line" + lineNumber);
+            String string = input.nextLine();
+            System.out.println(string);
+            if (string.startsWith("Quote #")) {
+                // get index from string, make int
+                lastQuoteIndex = Integer.parseInt(string.substring("Quote #".length()));
+            }
         }
 
-
-        //return lastQuote;
+        return lastQuoteIndex;
     }
 
     /** --- inputQContent ------------------------
