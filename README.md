@@ -5,6 +5,6 @@ This is a java application built in IntelliJIDEA Community Edition on Windows 10
 
 #### Downloads
 
-[openjdk15-15.0.2 Download](https://jdk.java.net/archive/)
+[openjdk15-15.0.2](https://jdk.java.net/archive/)  
 [Jetbrains: IntelliJIDEA](https://www.jetbrains.com/idea/)  
 [Direct Download Link (IntelliJIDEA Community Edition)](https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows&code=IIC)
