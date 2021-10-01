@@ -30,19 +30,19 @@ public class Main {
         Scanner input = new Scanner(System.in);
         Quote quote = new Quote();
 
-        // testing new method area
-        getLastQuoteIndex(input, quoteFile);
-        // testing new method area
-
         // TODO call startMenu and do something with the return int
         //  consider putting this switch statement in the startMenu method
         int menuSelection;
+        int quoteIndex;
         do {
+            quoteIndex = getLastQuoteIndex(input, quoteFile);
+            System.out.println("\n\nTHE CURRENT FILE HAS " + quoteIndex + " QUOTES SAVED.\n\n");
+
             menuSelection = startMenu(input);
             switch (menuSelection) {
                 case 1 -> {
                     System.out.println("YOU SELECTED ADD QUOTE.");
-                    addQuote(input, quoteFile);
+                    addQuote(input, quoteFile, quoteIndex);
                 }
                 case 2 -> {
                     System.out.println("YOU SELECTED SHOW QUOTE.");
@@ -98,15 +98,18 @@ public class Main {
      * @param quoteFile - descirption
      * -----------------------------------------
      */
-    private static void addQuote(Scanner input, File quoteFile) throws IOException {
+    private static void addQuote(Scanner input, File quoteFile, int currentIndex) throws IOException {
         Quote newQuote = new Quote();
+        input = new Scanner(System.in);
 
-        int qIndex = determineNextIndex(input);
-        String qContent = inputQContent(input);
-        String qAuthor = inputQAuthor(input);
-
+        int qIndex = ++currentIndex;
+        System.out.println(qIndex);
         newQuote.setIndex(qIndex);
+
+        String qContent = inputQContent(input);
         newQuote.setContent(qContent);
+
+        String qAuthor = inputQAuthor(input);
         newQuote.setAuthor(qAuthor);
 
         System.out.println("QUOTE SUCCESSFULLY ADDED.");
@@ -135,34 +138,6 @@ public class Main {
         System.out.println("QUOTE SUCCESSFULLY SAVED TO FILE.");
     }
 
-    /** --- determineNextIndex -------------------
-     *     // TODO set up so index is created automatically
-     *     // * -- check index of previous quote in text file
-     *     // * -- if no quote exists, index is 1
-     *     // * -- if quote exists, take index and increment by 1
-     *     // * -- take that value and assign to qIndex
-     * @param input - descirption
-     * @return - descirption
-     * -------------------------------------------
-     */
-    private static int determineNextIndex(Scanner input) {
-
-        // parse file
-        // grab index of last quote in file (prevIndex)
-        // int prevIndex = 0;
-
-        // create indexNumber, assign prevIndex++
-        // int nextIndex = prevIndex++;
-
-
-        System.out.print("[TEMP] Enter int for index: ");
-        int nextIndex = input.nextInt();
-        input.nextLine(); // advance scanner
-
-
-        return nextIndex;
-    }
-
     private static int getLastQuoteIndex(Scanner input, File quoteFile) throws FileNotFoundException {
 
         input = new Scanner(quoteFile);
@@ -170,7 +145,6 @@ public class Main {
 
         while (input.hasNextLine()) {
             String string = input.nextLine();
-            System.out.println(string);
             if (string.startsWith("Quote #")) {
                 // get index from string, make int
                 lastQuoteIndex = Integer.parseInt(string.substring("Quote #".length()));
