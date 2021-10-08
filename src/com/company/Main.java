@@ -12,12 +12,10 @@ public class Main {
         System.out.println("QUOTESAVE");
         System.out.println("by STINJA\n\n");
 
-        // TODO figure out if file stuff can go in its own method
         // Instantiate file object
         File quoteFile = new File("quotesList.txt");
 
         // If a file doesn't exist, create it
-        // TODO fix the stupid error on this one
         if (!quoteFile.exists()) {
             try {
                 quoteFile.createNewFile();
@@ -30,8 +28,6 @@ public class Main {
         Scanner input = new Scanner(System.in);
         Quote quote = new Quote();
 
-        // TODO call startMenu and do something with the return int
-        //  consider putting this switch statement in the startMenu method
         int menuSelection;
         int quoteIndex;
         do {
@@ -199,7 +195,49 @@ public class Main {
      * -------------------------------------------
      */
     private static void editQuote(Scanner input, File quoteFile) {
-        System.out.println("TODO -- build editQuote method");
+        int index = 0;
+        String content = "";
+        String author = "";
+
+        System.out.println("(EDIT) QUOTE INDEX:");
+        System.out.println("QUOTE #" + index);
+        // display quote to be edited based on given index
+        System.out.println("CONTINUE AND EDIT QUOTE?");
+        // if y/n or yes,
+            // take quote index
+            // find quote inside the text file
+            // copy line after quote #xxx put in content
+            // delete line
+            // copy line after previous line put in author
+            // delete line
+            // call the scanner
+            System.out.print("Content: " + content); // allow input using this line
+            // take input from scanner and place inside content
+            // display content
+            // prompt user to continue, if they say no loop back around and redo
+            // if yes, do same as above with author
+            Quote quote = new Quote(index, content, author);
+            // send to
+            updateQuote(input, quoteFile, quote);
+            System.out.println("QUOTE #X SUCCESSFULLY UPDATED.");
+        // else break; to "EDIT A DIFFERENT QUOTE?"
+        System.out.println("EDIT A DIFFERENT QUOTE? (Y/N)");
+        // if y or yes, go back up to "(EDIT) QUOTE INDEX:"
+        // else break; out of this method and back to main menu
+    }
+
+    /** --- updateQuote --------------------------
+     *
+     * -------------------------------------------
+     */
+    private static void updateQuote(Scanner input, File quoteFile, Quote quote) {
+        // grab index
+        // search file for "Quote #" + quote.index
+        // advance scanner to next line
+        // add quote.content then advance to next line
+        // add quote.author then advance to next line
+        // advance to next line
+        // close scanner
     }
 
     /** --- deleteQuote --------------------------
@@ -207,7 +245,20 @@ public class Main {
      * -------------------------------------------
      */
     private static void deleteQuote(Scanner input, File quoteFile) {
-        System.out.println("TODO -- build deleteQuote method");
+        int index = 0;
+        System.out.println("(DELETE) QUOTE INDEX:");
+        System.out.println("QUOTE #" + index);
+        // display quote to be deleted based on given index
+        System.out.println("CONTINUE AND DELETE?");
+        // if y/n or yes, delete quote
+        // take quote index
+        // find quote inside the text file
+        // delete 4 lines starting with "quote #"
+        // else break; to "Delete another quote?"
+        System.out.println("QUOTE #X SUCCESSFULLY DELETED.");
+        System.out.println("DELETE A QUOTE? (Y/N)");
+        // if y or yes, go back up to "QUOTE INDEX:"
+        // else break; out of this method and back to main menu
     }
 
     /** --- exitQuoteSave ------------------------
